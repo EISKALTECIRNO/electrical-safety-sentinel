@@ -1,4 +1,4 @@
-// 电安哨兵 - 热像模型仿真 第八版 (ESP32-S3, Wokwi)
+// 用电安全监督 - 热像模型仿真 第八版 (ESP32-S3, Wokwi)
 // 数据源: 仿真 (SIM)。新增: 可信黑匣子 (SHA-256 哈希链事件记录 + 篡改检出 + 链头锚定)
 #include <Arduino.h>
 #include <Wire.h>
@@ -17,7 +17,7 @@ const int PIN_BTN   = 5;
 const int PIN_I2C1_SDA = 17;
 const int PIN_I2C1_SCL = 18;
 
-// ---------- 参数 (申报书表 2-2 / 附录 A) ----------
+// ---------- 参数 ----------
 const float IB = 0.75f;
 const float K = 1.15f;
 const float TAU = 180.0f;
@@ -189,7 +189,6 @@ const char* faultBig(uint8_t m, bool stillBad) {
   return "SD FAIL";
 }
 
-// ---------- 可信黑匣子: 哈希链 (申报书 2.7) ----------
 // h_n = SHA256( h_(n-1) 的十六进制串 + "|" + 第 n 条记录 ); 真机把每条记录追加写入 SD 卡, 这里先放在内存里
 struct LogRec { char body[96]; char hash[65]; };
 const int MAXLOG = 100;
@@ -730,4 +729,3 @@ float x = data.currentA / IB;
 
   delay(1000 / SPEED);
 }
-// ===== END OF FILE (如果你的文件最后一行不是这一行, 说明粘贴被截断了) =====
